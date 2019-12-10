@@ -45,7 +45,7 @@ namespace DepartmentEmployees
 
             foreach (Employee emp in allEmployeesWithDept)
             {
-                Console.WriteLine($"{emp.Id}: {emp.FirstName} {emp.LastName} in {emp.DepartmentName} department");
+                Console.WriteLine($"{emp.Id}: {emp.FirstName} {emp.LastName} in {emp.Department.DeptName} department");
             }
 
 
@@ -61,7 +61,7 @@ namespace DepartmentEmployees
 
             Employee singleEmployee = employeeRepo.GetEmployeeById(1);
 
-            Console.WriteLine($"{singleEmployee.Id}: {singleEmployee.FirstName} {singleEmployee.LastName} in department {singleEmployee.DepartmentName}");
+            Console.WriteLine($"{singleEmployee.Id}: {singleEmployee.FirstName} {singleEmployee.LastName} in department {singleEmployee.Department.DeptName}");
 
             /*
             //ADDING NEW DEPARTMENTS

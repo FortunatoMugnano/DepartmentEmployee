@@ -115,8 +115,10 @@ namespace DepartmentEmployees.Data
                         string firstNameValue = reader.GetString(firstNameColumnPosition);
                         int lastNameColumnPosition = reader.GetOrdinal("LastName");
                         string lastNameValue = reader.GetString(lastNameColumnPosition);
-                        int departmentIdColumnPosition = reader.GetOrdinal("DeptName");
-                        string departmentIdValue = reader.GetString(departmentIdColumnPosition);
+                        int deptIdColumnPOsition = reader.GetOrdinal("DepartmentId");
+                        int deptIdValue = reader.GetInt32(deptIdColumnPOsition);
+                        int departmentNameColumnPosition = reader.GetOrdinal("DeptName");
+                        string departmentNameValue = reader.GetString(departmentNameColumnPosition);
 
                         // Now let's create a new department object using the data from the database.
                         Employee employee = new Employee
@@ -124,7 +126,11 @@ namespace DepartmentEmployees.Data
                             Id = idValue,
                             FirstName = firstNameValue,
                             LastName = lastNameValue,
-                            DepartmentName = departmentIdValue
+                            Department = new Department()
+                            {
+                                Id = deptIdValue,
+                                DeptName = departmentNameValue
+                            }
                         };
 
                         // ...and add that department object to our list.
@@ -150,7 +156,8 @@ namespace DepartmentEmployees.Data
                     cmd.CommandText = "SELECT" +
                         " Employee.FirstName," +
                         " Employee.LastName, " +
-                        " Department.DeptName " +
+                        " Department.DeptName, " +
+                        " Employee.DepartmentId"+
                         " FROM Employee " +
                         " RIGHT JOIN Department ON Employee.DepartmentId = Department.Id WHERE Employee.Id = @id";
 
@@ -168,7 +175,11 @@ namespace DepartmentEmployees.Data
                             Id = id,
                             FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
                             LastName = reader.GetString(reader.GetOrdinal("LastName")),
-                            DepartmentName = reader.GetString(reader.GetOrdinal("DeptName"))
+                            Department = new Department()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("DepartmentId")),
+                                DeptName = reader.GetString(reader.GetOrdinal("DeptName"))
+                            }
                         };
                     }
 
